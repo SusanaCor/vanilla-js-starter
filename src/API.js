@@ -1,58 +1,48 @@
-
-async function post(tarea) {
-    console.log("enviando al API")
-    console.log(tarea)
-    
-let _datos = {
-    task: tarea,
-
-  }
-
-  const response = await fetch('http://localhost:3000/api/task', {
+//post
+async function enviarTarea(task) {
+  const response = await fetch("http://localhost:3000/api/task", {
     method: "POST",
-    body: JSON.stringify(_datos),
-    headers: {"Content-type": "application/json; charset=UTF-8"}
-  })
-
-  
-  .then(response => response.json()) 
-  .then(json => console.log(json))
-  .catch(err => console.log(err));
-
-
-
-
-
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+  const tarea = await response.json();
+  return tarea;
 }
 
+//GET
+async function traerTareas() {
+  const response = await fetch("http://localhost:3000/api/task/", {
+    method: "GET",
+  });
 
-
-async function get(tarea) {
-    console.log("enviando al API")
-    console.log(tarea)
-    
-let _datos = {
-    task: tarea,
-
-  }
-
-  const response = await fetch('http://localhost:3000/api/task', {
-    method: "POST",
-    body: JSON.stringify(_datos),
-    headers: {"Content-type": "application/json; charset=UTF-8"}
-  })
-
-  
-  .then(response => response.json()) 
-  .then(json => console.log(json))
-  .catch(err => console.log(err));
-
-
-
-
-
+  const getPost = await response.json();
+  return getPost;
 }
 
-export {post}
+//DELETE
+async function borrarTareas(id) {
+  const response = await fetch("http://localhost:3000/api/task/" + id, {
+    method: "DELETE",
+  });
+  const deleteTask = await response.json();
+  return deleteTask;
+}
 
+//PUT
+async function actualizarTareas(id, task) {
+  const response = await fetch("http://localhost:3000/api/task/" + id, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+  const post = await response.json();
+  return post;
+}
 
+export { traerTareas, actualizarTareas, borrarTareas, enviarTarea };
