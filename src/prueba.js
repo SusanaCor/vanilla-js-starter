@@ -98,7 +98,6 @@ function crearElemento(id, texto, checked) {
     await borrarTareas(li.id);
     li.remove();
   };
-  
   li.appendChild(check);
   li.appendChild(txt);
   li.appendChild(btnEliminar);
